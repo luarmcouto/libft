@@ -6,17 +6,21 @@
 /*   By: luarodri <luarodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 17:09:18 by luarodri          #+#    #+#             */
-/*   Updated: 2025/07/26 17:09:21 by luarodri         ###   ########.fr       */
+/*   Updated: 2025/07/26 17:46:04 by luarodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstlast(t_list *lst)
+int	ft_lstsize(t_list *lst)
 {
-	if (!lst)
-		return (NULL);
-	while (lst->next)
+	int	size;
+
+	size = 0;
+	while (lst)
+	{
+		size++;
 		lst = lst -> next;
-	return (lst);
+	}
+	return (size);
 }
