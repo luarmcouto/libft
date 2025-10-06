@@ -3,27 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luamonteiro <luamonteiro@student.42.fr>    +#+  +:+       +#+        */
+/*   By: luarodri <luarodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 22:44:36 by luamonteiro       #+#    #+#             */
-/*   Updated: 2024/05/20 12:51:59 by luamonteiro      ###   ########.fr       */
+/*   Updated: 2025/10/06 10:26:21 by luarodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strtrim(char const *s1, char const *set)
+char	*ft_strtrim(const char *str, char c)
 {
 	int		start;
 	int		end;
-	char	*result;
+	int		len;
+	char	*trimmed;
+	int		i;
 
+	if (!str)
+		return (NULL);
 	start = 0;
-	end = ft_strlen(s1);
-	while (s1[start] && ft_strchr(set, s1[start]))
+	end = ft_strlen(str) - 1;
+	while (str[start] && str[start] == c)
 		start++;
-	while (end > start && ft_strrchr(set, s1[end - 1]))
+	while (end >= start && str[end] == c)
 		end--;
-	result = ft_substr(s1, start, (end - start));
-	return (result);
+	len = end - start + 1;
+	if (len <= 0)
+		return (ft_strdup(""));
+	trimmed = malloc((len + 1) * sizeof(char));
+	if (!trimmed)
+		return (NULL);
+	i = 0;
+	while (i < len)
+	{
+		trimmed[i] = str[start + i];
+		i++;
+	}
+	trimmed[i] = '\0';
+	return (trimmed);
 }

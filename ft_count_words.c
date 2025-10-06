@@ -1,23 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_count_words.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luarodri <luarodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/21 16:40:32 by luarodri          #+#    #+#             */
-/*   Updated: 2025/10/06 09:43:58 by luarodri         ###   ########.fr       */
+/*   Created: 2025/07/09 13:23:07 by luarodri          #+#    #+#             */
+/*   Updated: 2025/10/06 10:20:18 by luarodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
+size_t	ft_count_words(const char *s, char c)
 {
-	while (*s1 && *s2 && (*s1 == *s2))
+	size_t	count;
+	int		i;
+
+	count = 0;
+	i = 0;
+	while (s[i])
 	{
-		s1++;
-		s2++;
+		while (s[i] == c)
+			i++;
+		if (s[i])
+			count++;
+		while (s[i] && s[i] != c)
+			i++;
 	}
-	return ((unsigned char)*s1 - (unsigned char)*s2);
+	return (count);
 }

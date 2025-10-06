@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_open_file_read.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luarodri <luarodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/21 16:40:32 by luarodri          #+#    #+#             */
-/*   Updated: 2025/10/06 09:43:58 by luarodri         ###   ########.fr       */
+/*   Created: 2025/09/03 14:22:22 by luarodri          #+#    #+#             */
+/*   Updated: 2025/10/06 09:51:10 by luarodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../libft.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
+int	ft_open_file_read(const char *filename)
 {
-	while (*s1 && *s2 && (*s1 == *s2))
-	{
-		s1++;
-		s2++;
-	}
-	return ((unsigned char)*s1 - (unsigned char)*s2);
+	int	fd;
+
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
+		return (-1);
+	return (fd);
 }

@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_open_file_write.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luarodri <luarodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/21 16:40:32 by luarodri          #+#    #+#             */
-/*   Updated: 2025/10/06 09:43:58 by luarodri         ###   ########.fr       */
+/*   Created: 2025/09/03 14:23:10 by luarodri          #+#    #+#             */
+/*   Updated: 2025/10/06 09:53:36 by luarodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../libft.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
+int	ft_open_file_write(const char *filename, int append)
 {
-	while (*s1 && *s2 && (*s1 == *s2))
-	{
-		s1++;
-		s2++;
-	}
-	return ((unsigned char)*s1 - (unsigned char)*s2);
+	int	fd;
+	int	flags;
+
+	if (append)
+		flags = O_WRONLY | O_CREAT | O_APPEND;
+	else
+		flags = O_WRONLY | O_CREAT | O_TRUNC;
+	fd = open(filename, flags, 0644);
+	if (fd < 0)
+		return (-1);
+	return (fd);
 }

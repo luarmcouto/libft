@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luarodri <luarodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/21 16:40:32 by luarodri          #+#    #+#             */
-/*   Updated: 2025/10/06 09:43:58 by luarodri         ###   ########.fr       */
+/*   Created: 2025/09/09 18:56:33 by luarodri          #+#    #+#             */
+/*   Updated: 2025/10/06 09:54:51 by luarodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../libft.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
+int	ft_putchar_fd(char c, int fd)
 {
-	while (*s1 && *s2 && (*s1 == *s2))
-	{
-		s1++;
-		s2++;
-	}
-	return ((unsigned char)*s1 - (unsigned char)*s2);
+	if (write(fd, &c, 1) == -1)
+		return (-1);
+	return (0);
 }

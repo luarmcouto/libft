@@ -1,23 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_print_file.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luarodri <luarodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/21 16:40:32 by luarodri          #+#    #+#             */
-/*   Updated: 2025/10/06 09:43:58 by luarodri         ###   ########.fr       */
+/*   Created: 2025/09/03 20:44:56 by luarodri          #+#    #+#             */
+/*   Updated: 2025/10/06 09:37:59 by luarodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../libft.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
+int	ft_print_file(char *filename, char *color)
 {
-	while (*s1 && *s2 && (*s1 == *s2))
+	int		fd;
+	char	*line;
+
+	fd = ft_open_file_read(filename);
+	if (fd == -1)
+		return (-1);
+	while (1)
 	{
-		s1++;
-		s2++;
+		line = ft_get_next_line(fd);
+		if (!line)
+			break ;
+		if (color)
+			ft_putstr(color);
+		ft_putstr(line);
+		if (color)
+			ft_putstr(RESET_COLOR);
+		free(line);
 	}
-	return ((unsigned char)*s1 - (unsigned char)*s2);
+	ft_close_file(fd);
+	return (0);
 }

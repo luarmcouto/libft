@@ -3,70 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luamonteiro <luamonteiro@student.42.fr>    +#+  +:+       +#+        */
+/*   By: luarodri <luarodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 10:19:06 by luamonteiro       #+#    #+#             */
-/*   Updated: 2024/05/23 10:59:16 by luamonteiro      ###   ########.fr       */
+/*   Updated: 2025/10/06 10:19:28 by luarodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	numwords(char const *s, char c)
+static void	*free_all(char **arr, size_t j)
 {
-	int	i;
-	static int	word_num;
-
-	i = 0;
-	word_num = 0;
-	while (s[i] != 0)
-	{
-		if (s[i] != c && (s[i + 1] == c || s[i + 1] == 0))
-			word_num++;
-		i++;
-	}
-	return (word_num);
-}
-
-static int	split_words(char **result, char const *s, char c, int word)
-{
-	int		start_i;
-	int		end_i;
-
-	end_i = 0;
-	start_i = 0;
-	while (s[end_i])
-	{
-		if (s[end_i] == c || s[end_i] == 0)
-			start_i = end_i + 1;
-		if (s[end_i] != c && (s[end_i + 1] == c || s[end_i + 1] == 0))
-		{
-			result[word] = malloc(sizeof(char) * (end_i - start_i + 2));
-			if (!result[word])
-			{
-				while (word++)
-					free(result[word]);
-				return (0);
-			}
-			ft_strlcpy(result[word], (s + start_i), end_i - start_i + 2);
-			word++;
-		}
-		end_i++;
-	}
-	result[word] = 0;
-	return (1);
+	while (j > 0)
+		free(arr[--j]);
+	free(arr);
+	return (NULL);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	char	**result;
+	size_t	vars[4];
+	char	**res;
 
-	if (!s)
+	vars[0] = 0;
+	vars[1] = 0;
+	vars[2] = ft_count_words(s, c);
+	res = malloc((vars[2] + 1) * sizeof(char *));
+	if (!res)
 		return (NULL);
-	result = malloc(sizeof(char *) * (numwords(s, c) + 1));
-	if (!result)
-		return (NULL);
-	if (!split_words(result, s, c, 0))
-		return (NULL);
-	return (result);
+	while (vars[1] < vars[2])
+	{
+		while (s[vars[0]] == c)
+			vars[0]++;
+		vars[3] = vars[0];
+		while (s[vars[0]] && s[vars[0]] != c)
+			vars[0]++;
+		res[vars[1]] = malloc(vars[0] - vars[3] + 1);
+		if (!res[vars[1]])
+			return (free_all(res, vars[1]));
+		ft_memcpy(res[vars[1]], s + vars[3], vars[0] - vars[3]);
+		res[vars[1]][vars[0] - vars[3]] = '\0';
+		vars[1]++;
+	}
+	res[vars[1]] = NULL;
+	return (res);
 }
