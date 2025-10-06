@@ -6,7 +6,7 @@
 /*   By: luarodri <luarodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 22:44:36 by luamonteiro       #+#    #+#             */
-/*   Updated: 2025/10/06 10:26:21 by luarodri         ###   ########.fr       */
+/*   Updated: 2025/10/06 11:04:45 by luarodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,9 @@ char	*ft_strtrim(const char *str, char c)
 	trimmed = malloc((len + 1) * sizeof(char));
 	if (!trimmed)
 		return (NULL);
-	i = 0;
-	while (i < len)
-	{
+	i = -1;
+	while (++i < len)
 		trimmed[i] = str[start + i];
-		i++;
-	}
 	trimmed[i] = '\0';
 	return (trimmed);
 }
